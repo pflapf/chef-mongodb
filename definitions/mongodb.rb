@@ -65,6 +65,7 @@ define :mongodb_instance,
   new_resource.auto_configure_replicaset  = node['mongodb']['auto_configure']['replicaset']
   new_resource.auto_configure_sharding    = node['mongodb']['auto_configure']['sharding']
   new_resource.bind_ip                    = node['mongodb']['config']['bind_ip']
+  new_resource.pidfilepath                = node['mongodb']['config']['pidfilepath']
   new_resource.cluster_name               = node['mongodb']['cluster_name']
   new_resource.config                     = node['mongodb']['config']
   new_resource.dbconfig_file              = node['mongodb']['dbconfig_file']
@@ -153,6 +154,17 @@ define :mongodb_instance,
     mode '0755'
     action :create
     recursive true
+  end
+
+  # pid file dir [make sure it exists]
+  unless new_resource.pidfilepath.nil?
+    directory File.dirname(new_resource.pidfilepath) do
+      owner new_resource.mongodb_user
+      group new_resource.mongodb_group
+      mode '0755'
+      action :create
+      recursive true
+    end
   end
 
   if new_resource.type != 'mongos'
