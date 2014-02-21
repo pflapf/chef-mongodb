@@ -1,9 +1,9 @@
 name              'mongodb'
-maintainer        'edelight GmbH'
-maintainer_email  'markus.korn@edelight.de'
+maintainer        'pflapf mantained from edelight GmbH'
+maintainer_email  'pflapf@googlemail.com'
 license           'Apache 2.0'
 description       'Installs and configures mongodb'
-version           '0.15.0'
+version           '0.15.1'
 
 recipe 'mongodb', 'Installs and configures a single node mongodb instance'
 recipe 'mongodb::10gen_repo', 'Adds the 10gen repo to get the latest packages'
